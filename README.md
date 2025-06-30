@@ -123,17 +123,6 @@ Output will be in the `dist/` folder.
 
 ---
 
-## 📸 Screenshots
-
-You can optionally add screenshots like:
-
-- 📌 Register/Login Page  
-- 📌 Dashboard  
-- 📌 Goal editing  
-- 📌 Loader in action
-
----
-
 ## 🤝 Contributing
 
 Feel free to fork and enhance the project. PRs are welcome.
@@ -148,4 +137,4 @@ This project is open-source and free to use.
 
 ## 🔗 Backend Link
 
-See [Health Wellness App - Backend](https://github.com/your-username/health-wellness-app-backend)
+See [Health Wellness App - Backend](https://github.com/asmit137/wellness_App_Server)
