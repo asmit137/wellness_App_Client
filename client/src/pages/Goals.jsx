@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import GoalForm from "../components/goals/GoalForm";
 import GoalList from "../components/goals/GoalList";
+import BASE_URL from "../api";
 
 const Goals = () => {
   const [goals, setGoals] = useState([]);
@@ -12,7 +13,7 @@ const Goals = () => {
   const token = localStorage.getItem("token");
 
   const fetchGoals = async () => {
-    const res = await axios.get("http://localhost:5000/api/goals", {
+    const res = await axios.get(`${BASE_URL}/api/goals`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setGoals(res.data);
@@ -27,7 +28,7 @@ const Goals = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:5000/api/goals", goalForm, {
+    await axios.post(`${BASE_URL}/api/goals`, goalForm, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setGoalForm({ goalType: "", value: "", target: "" });
@@ -47,7 +48,7 @@ const Goals = () => {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     await axios.put(
-      `http://localhost:5000/api/goals/${editingGoalId}`,
+      `${BASE_URL}/api/goals/${editingGoalId}`,
       editForm,
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -61,7 +62,7 @@ const Goals = () => {
     const confirmDelete = window.confirm("Are you sure you want to delete this goal?");
     if (!confirmDelete) return;
 
-    await axios.delete(`http://localhost:5000/api/goals/${id}`, {
+    await axios.delete(`${BASE_URL}/api/goals/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     fetchGoals();

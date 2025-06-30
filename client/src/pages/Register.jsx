@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
+import BASE_URL from "../api";
 
 const Register = () => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -19,7 +20,7 @@ const Register = () => {
     if (!captchaToken) return alert("Please complete the CAPTCHA");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", {
+      const res = await axios.post(`${BASE_URL}/api/auth/register`, {
         ...form,
         captchaToken
       });

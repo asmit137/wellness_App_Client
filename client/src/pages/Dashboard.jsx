@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ConsultationList from "../components/consultation/ConsultationList";
+import BASE_URL from "../api";
 
 const Dashboard = () => {
   const [goals, setGoals] = useState([]);
@@ -10,7 +11,7 @@ const Dashboard = () => {
   // Fetch goals
   const fetchGoals = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/goals", {
+      const res = await axios.get(`${BASE_URL}/api/goals`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setGoals(res.data);
@@ -22,7 +23,7 @@ const Dashboard = () => {
   // Fetch consultations
   const fetchConsultations = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/consultation", {
+      const res = await axios.get(`${BASE_URL}/api/consultation`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setConsultations(res.data);

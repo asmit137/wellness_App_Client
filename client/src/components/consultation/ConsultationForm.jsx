@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import BASE_URL from "../../api";
 
 const ConsultationForm = ({ onBooked }) => {
   const [form, setForm] = useState({ date: "", time: "", reason: "" });
@@ -9,7 +10,7 @@ const ConsultationForm = ({ onBooked }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    await axios.post("http://localhost:5000/api/consultation", form, {
+    await axios.post(`${BASE_URL}/api/consultation`, form, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setForm({ date: "", time: "", reason: "" });
