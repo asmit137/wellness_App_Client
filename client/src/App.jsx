@@ -15,6 +15,7 @@ const App = () => {
     <Router>
       <Header />
         <Routes>
+          <Route path="https://wellness-app-client-git-main-asmit137s-projects.vercel.app" element={<Home/></Route>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
