@@ -23,7 +23,7 @@ const Consultation = () => {
     <div className="max-w-3xl mx-auto p-4">
       <h2 className="text-2xl font-semibold mb-4">Your Consultations</h2>
       <ConsultationForm onBooked={fetchConsultations} />
-      <ConsultationList consultations={consultations} />
+      <ConsultationList consultations={consultations} fetchConsultations={fetchConsultations} />
     </div>
   );
 };

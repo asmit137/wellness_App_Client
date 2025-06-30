@@ -20,7 +20,6 @@ const Dashboard = () => {
     }
   };
 
-  // Fetch consultations
   const fetchConsultations = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/api/consultation`, {
@@ -64,7 +63,17 @@ const Dashboard = () => {
       {/* Consultations */}
       <div className="bg-white shadow p-6 rounded">
         <h2 className="text-xl font-semibold mb-2">Your Consultations</h2>
-        <ConsultationList consultations={consultations} />
+        {consultations.length === 0 ? (
+          <p>No Consultation yet.</p>
+        ) : (
+          <ul className="list-disc pl-5">
+        {consultations.map((c) => (
+          <li key={c._id}>
+             {c.date} at {c.time} — {c.reason}
+          </li>
+        ))}
+      </ul>
+        )}
       </div>
     </div>
   );
