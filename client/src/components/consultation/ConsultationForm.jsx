@@ -10,12 +10,30 @@ const ConsultationForm = ({ onBooked }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
+  
+    const now = new Date();
+    const selectedDateTime = new Date(`${form.date}T${form.time}`);
+  
+   
+    const isAtLeast24HoursAhead = selectedDateTime.getTime() - now.getTime() >= 24 * 60 * 60 * 1000;
+  
+    
+    const selectedHour = selectedDateTime.getHours();
+    const isWithinWorkingHours = selectedHour >= 10 && selectedHour < 20;
+  
+    if (!isAtLeast24HoursAhead || !isWithinWorkingHours) {
+      alert("Date must be at least 24 hours in the future and time must be between 10 AM and 8 PM.");
+      return;
+    }
+  
+  
     await axios.post(`${BASE_URL}/api/consultation`, form, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setForm({ date: "", time: "", reason: "" });
-    onBooked(); // refresh appointments
+    onBooked();
   };
+  
 
   return (
     <form onSubmit={handleSubmit} className="space-y-3 mt-4">
