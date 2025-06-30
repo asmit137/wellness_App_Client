@@ -9,11 +9,13 @@ Built using:
 - 🔄 Axios for API communication
 - 🔐 Token-based Authentication
 
----
 
 ## 🔗 Catch Live Link
 
 See [Client Side](https://wellness-app-client.vercel.app/)
+
+
+---
 
 
 ## 🔧 Features
