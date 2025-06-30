@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import Loader from "../Loader";
 
 const GoalList = ({
   goals,
@@ -9,6 +10,14 @@ const GoalList = ({
   handleEditSubmit,
   handleDelete,
 }) => {
+  const [deletingGoalId, setDeletingGoalId] = useState(null);
+
+  const handleDeleteWithLoader = async (id) => {
+    setDeletingGoalId(id);
+    await handleDelete(id);
+    setDeletingGoalId(null);
+  };
+
   return (
     <div className="mt-6">
       <h3 className="text-2xl font-bold mb-4 text-gray-800">Your Goals</h3>
@@ -34,17 +43,24 @@ const GoalList = ({
                 >
                   Edit
                 </button>
-                <button
-                  onClick={() => handleDelete(goal._id)}
-                  className="px-3 py-1 text-sm bg-red-100 text-red-600 rounded hover:bg-red-200 transition"
-                >
-                  Delete
-                </button>
+                {deletingGoalId === goal._id ? (
+                  <Loader small />
+                ) : (
+                  <button
+                    onClick={() => handleDeleteWithLoader(goal._id)}
+                    className="px-3 py-1 text-sm bg-red-100 text-red-600 rounded hover:bg-red-200 transition"
+                  >
+                    Delete
+                  </button>
+                )}
               </div>
             </div>
 
             {editingGoalId === goal._id && (
-              <form onSubmit={handleEditSubmit} className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3">
+              <form
+                onSubmit={handleEditSubmit}
+                className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3"
+              >
                 <input
                   type="number"
                   name="value"
