@@ -7,7 +7,7 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/auth");
   };
 
   return (
@@ -16,25 +16,56 @@ const Header = () => {
         <h1 className="text-xl font-bold text-green-600">
           <Link to="/">Health Wellness App</Link>
         </h1>
-        <nav className="flex space-x-4">
-          {token && (
-            <>
-              <Link to="/dashboard" className="text-gray-700 hover:text-green-600 cursor-pointer">Dashboard</Link>
-              <Link to="/goals" className="text-gray-700 hover:text-green-600 cursor-pointer">Goals</Link>
-              <Link to="/book-consultation" className="text-gray-700 hover:text-green-600 cursor-pointer">Book Consultation</Link>
-              <button onClick={handleLogout} className="text-red-500 hover:underline cursor-pointer">Logout</button>
-            </>
-          )}
-          {!token && (
-            <>
-            <Link to="/" className="text-gray-700 hover:text-green-600 cursor-pointer">Home</Link>
-              <Link to="/login" className="text-gray-700 hover:text-green-600 cursor-pointer">Login</Link>
-              <Link to="/register" className="text-gray-700 hover:text-green-600 cursor-pointer">Register</Link>
-            </>
-          )}
-        </nav>
+        {/*         
+        {!token && (
+  <div className="flex justify-between items-center w-full px-4">
+  
+    <nav className="flex space-x-6 mx-auto">
+      <Link to="/" className="text-gray-700 hover:text-green-600 font-medium">Home</Link>
+      <Link to="/about" className="text-gray-700 hover:text-green-600 font-medium">About</Link>
+      <Link to="/contact" className="text-gray-700 hover:text-green-600 font-medium">Contact</Link>
+    </nav>
+
+    
+    <Link
+      to="/auth"
+      className="flex items-center text-blue-600 font-semibold hover:underline text-md"
+    >
+      <span className="mr-2 text-lg">👤</span> Login / Register
+    </Link>
+  </div>
+)} */}
+
+        {!token ? (
+          <>
+            <nav className="flex space-x-6 mx-auto">
+              <Link to="/" className="text-gray-700 hover:text-green-600 font-medium">Home</Link>
+              <Link to="/about" className="text-gray-700 hover:text-green-600 font-medium">About</Link>
+              <Link to="/contact" className="text-gray-700 hover:text-green-600 font-medium">Contact</Link>
+            </nav>
+            <Link
+              to="/auth"
+              className="flex items-center text-blue-600 font-semibold hover:underline text-md"
+            >
+              <svg className="w-8 h-8 mr-2" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 15c2.485 0 4.798.755 6.879 2.043M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
+</svg>
+
+            </Link>
+          </>
+        ) : (
+          <>
+            <nav className="flex space-x-4 items-center">
+              <Link to="/dashboard" className="text-gray-700 hover:text-green-600">Dashboard</Link>
+              <Link to="/goals" className="text-gray-700 hover:text-green-600">Goals</Link>
+              <Link to="/book-consultation" className="text-gray-700 hover:text-green-600">Book Consultation</Link>
+              <button onClick={handleLogout} className="text-red-500 hover:underline">Logout</button>
+            </nav>
+
+          </>
+        )}
       </div>
-    </header>
+    </header >
   );
 };
 

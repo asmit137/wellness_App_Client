@@ -2,17 +2,16 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
-import BASE_URL from "../api";
-import Loader from "../components/Loader"; 
+import BASE_URL from "./../api";
 
-const Register = () => {
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+const Login = ({ embedded, setGlobalLoading, switchToRegister }) => {
+  const [form, setForm] = useState({ email: "", password: "" });
   const [captchaToken, setCaptchaToken] = useState(null);
-  const [loading, setLoading] = useState(false); 
   const navigate = useNavigate();
 
-  const handleChange = (e) =>
+  const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleCaptcha = (token) => {
     setCaptchaToken(token);
@@ -20,66 +19,67 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!captchaToken) return alert("Please complete the CAPTCHA");
+    if (!captchaToken) {
+      alert("Please verify the captcha");
+      return;
+    }
 
-    setLoading(true); 
+    if (setGlobalLoading) setGlobalLoading(true);
+
     try {
-      const res = await axios.post(`${BASE_URL}/api/auth/register`, {
+      const res = await axios.post(`${BASE_URL}/api/auth/login`, {
         ...form,
         captchaToken,
       });
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
     } catch {
-      alert("Registration failed");
+      alert("Login failed");
     } finally {
-      setLoading(false); 
+      if (setGlobalLoading) setGlobalLoading(false);
     }
   };
 
-  
-  if (loading) return <Loader />;
-
   return (
     <>
-      <h2 className="text-2xl font-bold mb-4 text-center">
-        Register Yourself First
-      </h2>
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-10 space-y-4">
-        <input
-          name="name"
-          onChange={handleChange}
-          placeholder="Name"
-          className="w-full border p-2"
-        />
+      {!embedded && <h1 className="text-3xl font-bold text-center mb-6">Login</h1>}
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
           name="email"
-          onChange={handleChange}
           placeholder="Email"
           className="w-full border p-2"
+          onChange={handleChange}
         />
         <input
           name="password"
           type="password"
-          onChange={handleChange}
           placeholder="Password"
           className="w-full border p-2"
+          onChange={handleChange}
         />
-
         <ReCAPTCHA
           sitekey="6Ld173ArAAAAAKz9a4mGRwZDwL35czUnFohwIzlP"
           onChange={handleCaptcha}
         />
-
         <button
           type="submit"
-          className="w-full bg-green-500 text-white py-2 cursor-pointer"
+          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 cursor-pointer"
+        >
+          Login
+        </button>
+      </form>
+
+      <p className="text-center mt-4 text-sm text-gray-600">
+        Don’t have an account?{" "}
+        <button
+          className="text-blue-600 hover:underline cursor-pointer"
+          onClick={switchToRegister}
         >
           Register
         </button>
-      </form>
+      </p>
     </>
   );
 };
 
-export default Register;
+export default Login;
