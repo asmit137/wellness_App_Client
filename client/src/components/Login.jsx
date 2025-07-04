@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 import BASE_URL from "./../api";
+import GoogleSignInButton from "./GoogleSignInButton";
 
 const Login = ({ embedded, setGlobalLoading, switchToRegister }) => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -43,6 +44,12 @@ const Login = ({ embedded, setGlobalLoading, switchToRegister }) => {
   return (
     <>
       {!embedded && <h1 className="text-3xl font-bold text-center mb-6">Login</h1>}
+
+      <div className="mt-6 text-center">
+      <GoogleSignInButton />
+        <p className="text-gray-600 mb-2">or sign up with</p>
+      </div>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           name="email"

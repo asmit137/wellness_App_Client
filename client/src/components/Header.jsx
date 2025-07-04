@@ -55,12 +55,12 @@ const Header = () => {
           </>
         ) : (
           <>
-            <nav className="flex space-x-4 items-center">
-              <Link to="/dashboard" className="text-gray-700 hover:text-green-600">Dashboard</Link>
-              <Link to="/goals" className="text-gray-700 hover:text-green-600">Goals</Link>
-              <Link to="/book-consultation" className="text-gray-700 hover:text-green-600">Book Consultation</Link>
-              <button onClick={handleLogout} className="text-red-500 hover:underline">Logout</button>
+          <nav className="flex space-x-6 mx-auto">
+              <Link to="/dashboard" className="text-gray-700 hover:text-green-600 font-medium">Dashboard</Link>
+              <Link to="/goals" className="text-gray-700 hover:text-green-600 font-medium">Goals</Link>
+              <Link to="/book-consultation" className="text-gray-700 hover:text-green-600 font-medium">Book Consultation</Link>
             </nav>
+           <button onClick={handleLogout} className="text-red-500 hover:underline">Logout</button>
 
           </>
         )}
