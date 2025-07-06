@@ -10,29 +10,27 @@ const GoogleSignInButton = ({ setGlobalLoading }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleGoogleLoginSuccess = async (credentialResponse) => {
-    setLoading(true);
-    if (setGlobalLoading) setGlobalLoading(true);
+const handleGoogleLoginSuccess = async (credentialResponse) => {
+  setLoading(true);
+  if (setGlobalLoading) setGlobalLoading(true);
 
-    try {
-      const decoded = jwtDecode(credentialResponse.credential);
-      const { name, email } = decoded;
+  try {
+    const token = credentialResponse.credential;
 
-      const response = await axios.post(`${BASE_URL}/api/auth/googlelogin`, {
-        name,
-        email,
-      });
+    const response = await axios.post(`${BASE_URL}/api/auth/googlelogin`, {
+      token, 
+    });
 
-      localStorage.setItem("token", response.data.token);
-      navigate("/dashboard");
-    } catch (error) {
-      console.error("Google login error:", error);
-      alert("Google login failed");
-    } finally {
-      setLoading(false);
-     
-    }
-  };
+    localStorage.setItem("token", response.data.token);
+    navigate("/dashboard");
+  } catch (error) {
+    console.error("Google login error:", error);
+    alert("Google login failed");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   if (loading) return <Loader />;
 
