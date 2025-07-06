@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { jwtdecode } from "jwt-decode";
+import  jwtdecode  from "jwt-decode";
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
