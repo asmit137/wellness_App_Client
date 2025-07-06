@@ -18,7 +18,7 @@ const GoogleSignInButton = ({ setGlobalLoading }) => {
       const decoded = jwtDecode(credentialResponse.credential);
       const { name, email } = decoded;
 
-      const response = await axios.post(`${BASE_URL}/api/auth/google`, {
+      const response = await axios.post(`${BASE_URL}/api/auth/googlelogin`, {
         name,
         email,
       });
