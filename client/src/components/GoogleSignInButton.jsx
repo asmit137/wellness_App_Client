@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import  jwtdecode  from "jwt-decode";
+import { jwtDecode } from 'jwt-decode';
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ const GoogleSignInButton = ({ setGlobalLoading }) => {
     if (setGlobalLoading) setGlobalLoading(true);
 
     try {
-      const decoded = jwtdecode(credentialResponse.credential);
+      const decoded = jwtDecode(credentialResponse.credential);
       const { name, email } = decoded;
 
       const response = await axios.post(`${BASE_URL}/api/auth/google`, {
